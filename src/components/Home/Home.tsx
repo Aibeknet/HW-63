@@ -1,17 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { fetchPosts } from '../../axiosAPI';
-
-interface Post {
-  id: string;
-  title: string;
-  body: string;
-  date: string;
-}
+import { Post } from '../../types.ts';
 
 const Home: React.FC = () => {
   const [posts, setPosts] = useState<Post[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const getPosts = async () => {
@@ -39,7 +33,7 @@ const Home: React.FC = () => {
               <h5 className="card-title">{post.title}</h5>
               <p className="card-text">{post.body}</p>
               <p className="card-text text-muted">
-                {new Date(post.date).toLocaleDateString()}
+                {new Date(post.date).toLocaleDateString()} at {post.time}
               </p>
               <Link to={`/posts/${post.id}`} className="btn btn-info">Read more</Link>
             </div>
@@ -47,22 +41,6 @@ const Home: React.FC = () => {
         ))}
       </div>
     </div>
-    // <div className="container">
-    //   <h1 className="mt-4">Posts</h1>
-    //   <Link to="/new-post" className="btn btn-primary mb-3">Add New Post</Link>
-    //   <div className="list-group">
-    //     {posts.map((post) => (
-    //       <div className="list-group-item" key={post.id}>
-    //         <h5 className="mb-1">{post.title}</h5>
-    //         <p className="mb-1">{post.body}</p>
-    //         <p className="card-text text-muted">
-    //           {new Date(post.date).toLocaleDateString()}
-    //         </p>
-    //         <Link to={`/posts/${post.id}`} className="btn btn-link">Read More</Link>
-    //       </div>
-    //     ))}
-    //   </div>
-    // </div>
   );
 };
 

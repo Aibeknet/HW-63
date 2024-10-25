@@ -21,10 +21,13 @@ const PostForm: React.FC<{ isEdit: boolean }> = ({ isEdit }) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    const postData: { date: string; title: string; body: string } = { title, body, date: new Date().toISOString() };
+
     if (isEdit) {
-      await updatePost(id!, { title, body });
+      await updatePost(id!, postData);
     } else {
-      await createPost({ title, body });
+      await createPost(postData);
     }
     navigate('/');
   };
@@ -35,13 +38,31 @@ const PostForm: React.FC<{ isEdit: boolean }> = ({ isEdit }) => {
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
           <label className="form-label">Title</label>
-          <input type="text" className="form-control" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Title" required />
+          <input
+            type="text"
+            className="form-control"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            placeholder="Title"
+            required
+          />
         </div>
         <div className="mb-3">
-          <label className="form-label">Body</label>
-          <textarea className="form-control" value={body} onChange={(e) => setBody(e.target.value)} placeholder="Body" required />
+          <label className="form-label">Description</label>
+          <textarea
+            className="form-control"
+            value={body}
+            onChange={(e) => setBody(e.target.value)}
+            placeholder="Description"
+            required
+          />
         </div>
-        <button type="submit" className="btn btn-primary">{isEdit ? 'Update' : 'Create'} Post</button>
+        <button
+          type="submit"
+          className="btn btn-primary"
+        >
+          {isEdit ? 'Edit' : 'Create'} Post
+        </button>
       </form>
     </div>
   );

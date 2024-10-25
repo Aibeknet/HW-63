@@ -1,13 +1,24 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const Navbar: React.FC = () => {
+const NavBar: React.FC = () => {
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
-      <div className="container-fluid">
+    <nav className="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+      <div className="container">
         <Link className="navbar-brand" to="/">My Blog</Link>
-        <div className="collapse navbar-collapse">
-          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        <div className="collapse navbar-collapse justify-content-center" id="navbarNav">
+          <ul className="navbar-nav ms-auto">
             <li className="nav-item">
               <Link className="nav-link" to="/">Home</Link>
             </li>
@@ -27,4 +38,4 @@ const Navbar: React.FC = () => {
   );
 };
 
-export default Navbar;
+export default NavBar;

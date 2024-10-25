@@ -14,13 +14,26 @@ export const fetchPostById = async (id: string) => {
   return response.data;
 };
 
-export const createPost = async (post: any) => {
-  await axiosAPI.post('/posts.json', post);
+export const createPost = async (post: { date: string; title: string; body: string }) => {
+  const newPost = {
+    ...post,
+    date: new Date().toISOString(),
+    time: new Date().toLocaleTimeString(),
+  };
+  await axiosAPI.post('/posts.json', newPost);
 };
 
-export const updatePost = async (id: string, post: any) => {
-  await axiosAPI.put(`/posts/${id}.json`, post);
+export const updatePost = async (id: string, post: { date: string; title: string; body: string }) => {
+  const updatedPost = {
+    ...post,
+    date: new Date().toISOString(),
+    time: new Date().toLocaleTimeString(),
+  };
+  await axiosAPI.put(`/posts/${id}.json`, updatedPost);
 };
 
+export const deletePost = async (id: string) => {
+  await axiosAPI.delete(`/posts/${id}.json`);
+};
 
 export default axiosAPI;
